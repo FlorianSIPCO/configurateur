@@ -7,10 +7,67 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  CLIENT
+}
+
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
   password  String
+  firstname String
+  lastname  String
+  role      Role     @default(CLIENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Configurator {
+  id        String   @id @default(uuid())
   name      String
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  products  Product[]
+  leads     Lead[]
+}
+
+model Product {
+  id              String   @id @default(uuid())
+  name            String
+  description     String?
+  configuratorId  String
+  configurator    Configurator @relation(fields: [configuratorId], references: [id])
+  priceFormula    String   // Exemple: "base_price + (width * height * material_coef)"
+  images          String[] // URLs des images
+  options         Option[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Option {
+  id          String   @id @default(uuid())
+  name        String
+  type        OptionType // "color", "size", "material"...
+  values      Json      // Ex: ["Bois", "PVC", "Aluminium"]
+  productId   String
+  product     Product @relation(fields: [productId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Lead {
+  id             String   @id @default(uuid())
+  configuratorId String
+  configurator   Configurator @relation(fields: [configuratorId], references: [id])
+  userData       Json      // Contient les infos du formulaire soumis
+  priceEstimate  Float
+  createdAt      DateTime @default(now())
+}
+
+enum OptionType {
+  COLOR
+  SIZE
+  MATERIAL
+  CUSTOM
 }
