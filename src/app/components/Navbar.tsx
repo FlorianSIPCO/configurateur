@@ -10,13 +10,13 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: "Produits", href: '/products'},
     { name: "Accueil", href: '/'},
+    { name: "Configurateur", href: '/configurator'},
     { name: "Contact", href: '/contact'},
   ]
 
   return (
-    <nav className="relative top-0 left-0 w-full bg-gray-800 text-amber-700 backdrop-blur-lg  shadow-lg z-50">
+    <nav className="relative top-0 left-0 w-full bg-white text-amber-700 backdrop-blur-lg  shadow-lg z-50">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
         
         {/* Logo */}
@@ -27,7 +27,7 @@ const Navbar = () => {
         >
           <Link href='/'>
             <Image 
-              src='/images/logo.png'
+              src='/images/logo-black.png'
               alt="Logo SIPCO Gaming"
               width={50}
               height={50}
@@ -42,7 +42,7 @@ const Navbar = () => {
           {navItems.map((item, i) => (
             <motion.li
               key={i}
-              className="relative cursor-pointer text-2xl font-bold text-amber-700 transition-all duration-300 hover:text-amber-600 hover:scale-105"
+              className="relative cursor-pointer text-2xl font-bold text-amber-700 transition-all duration-300 hover:text-amber-800 hover:scale-105"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0, transition: { delay: i * 0.2 } }}
             >
@@ -57,7 +57,7 @@ const Navbar = () => {
         {/* Icons Login */}
         <div className="flex items-center space-x-4">
           <Link href='/login'>
-            <User className="w-10 h-10 cursor-pointer hover:text-amber-600 transition" />
+            <User className="w-10 h-10 cursor-pointer hover:text-amber-800 transition" />
           </Link>
           <button
             className="md:hidden text-white"

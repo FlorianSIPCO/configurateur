@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from "next/image";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -27,7 +28,14 @@ const Sidebar = () => {
     <>
       <aside className="hidden lg:flex w-64 bg-gray-800 p-6 flex-col justify-between">
         <nav>
-          <h2 className="text-2xl font-bold text-white mb-6">Admin</h2>
+          <Image 
+            src='/images/logo.png'
+            alt="Logo SIPCO Gaming"
+            width={120}
+            height={120}
+            className="flex justify-center mx-auto mb-10"
+            priority
+          />
           <ul className="space-y-4">
             {navItems.map((item, index) => (
               <li key={index}>
@@ -90,7 +98,14 @@ const Sidebar = () => {
 
             {/* Navigation */}
             <nav>
-              <h2 className="text-2xl font-bold text-white mb-6">Admin</h2>
+              <Image 
+                src='/images/logo-black.png'
+                alt="Logo SIPCO Gaming"
+                width={50}
+                height={50}
+                style={{ width: "auto", height: "auto" }}
+                priority
+              />
               <ul className="space-y-4">
                 {navItems.map((item, index) => (
                   <li key={index}>

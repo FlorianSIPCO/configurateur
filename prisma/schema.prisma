@@ -29,7 +29,6 @@ model Configurator {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   products  Product[]
-  leads     Lead[]
 }
 
 model Product {
@@ -58,8 +57,6 @@ model Option {
 
 model Lead {
   id             String   @id @default(uuid())
-  configuratorId String
-  configurator   Configurator @relation(fields: [configuratorId], references: [id])
   userData       Json      // Contient les infos du formulaire soumis
   priceEstimate  Float
   createdAt      DateTime @default(now())

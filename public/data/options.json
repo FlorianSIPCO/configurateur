@@ -1,0 +1,21 @@
+{
+    "textures": [
+      {
+        "name": "Bois",
+        "colors": [
+          { "name": "Bois Clair", "image": "/images/bois-clair.png", "miniature": "/images/texture-bois-clair.jpg", "price": 0 },
+          { "name": "Bois Blanc", "image": "/images/bois-blanc.png", "miniature": "/images/texture-bois-blanc.jfif", "price": 50 },
+          { "name": "Bois Foncé", "image": "/images/bois-fonce.png", "miniature": "/images/texture-bois-fonce.jpg", "price": 60 }
+        ]
+      },
+      {
+        "name": "Métal",
+        "colors": [
+          { "name": "Métal Blanc", "image": "/images/metal-blanc.png", "miniature": "/images/texture-metal-blanc.webp", "price": 55 },
+          { "name": "Métal Noir", "image": "/images/metal-noir.png", "miniature": "/images/texture-metal-noir.jpg", "price": 50 },
+          { "name": "Métal Rouillé", "image": "/images/metal-rouille.png", "miniature": "/images/texture-metal-rouille.jfif", "price": 60 }
+        ]
+      }
+    ]
+  }
+  

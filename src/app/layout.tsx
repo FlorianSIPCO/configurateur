@@ -50,7 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
         <SessionProviderWrapper>
           <LayoutWrapper>
-            <Toaster position="top-right" reverseOrder={false} />
+            <Toaster position="bottom-center" reverseOrder={false} />
             {children}
           </LayoutWrapper>
         </SessionProviderWrapper>

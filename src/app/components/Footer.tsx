@@ -28,14 +28,14 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="w-full bg-gray-800 text-gray-400 text-sm py-6 relative">
+      <footer className="w-full bg-white text-amber-700 text-sm py-6 relative">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between px-6 text-center md:text-left">
           
           {/* Logo & Copyright */}
           <div className="flex flex-col md:flex-row items-center gap-4">
             <Link href='/'>
               <Image 
-                src="/images/logo.png" 
+                src="/images/logo-black.png" 
                 alt="Logo SIPCO Gaming" 
                 width={50} 
                 height={50}
@@ -50,8 +50,8 @@ const Footer = () => {
 
           {/* Liens légaux */}
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-4 md:mt-0">
-            <Link href="/mentions-legales" className="hover:text-white transition">Mentions légales</Link>
-            <Link href="/politique-de-confidentialite" className="hover:text-white transition">Politique de confidentialité</Link>
+            <Link href="/mentions-legales" className="hover:text-amber-800 transition">Mentions légales</Link>
+            <Link href="/politique-de-confidentialite" className="hover:text-amber-800 transition">Politique de confidentialité</Link>
           </div>
 
         </div>
