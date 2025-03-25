@@ -1,13 +1,34 @@
 "use client";
 import { useConfigurator } from "@/context/ConfiguratorContext";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+type Product = {
+  id: string;
+  name: string;
+  images: string[];
+}
 
 export default function ProductSelector() {
   const { setProduct, selectedProduct } = useConfigurator();
+  const [products, setProducts] = useState<Product[]>([]);
 
-  const products = [
-    { name: "Borne d'affichage", image: "/images/bois-clair.png" },
-  ]
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const response = await fetch('/api/products');
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des produits');
+        }
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchProducts();
+  }, []);
 
   return (
     <div className="p-4 border-b">
@@ -18,14 +39,14 @@ export default function ProductSelector() {
       <div className="grid grid-cols-2 gap-4">
         {products.map((product) => (
           <button
-            key={product.name}
-            onClick={() => setProduct(product.name, product.image)}
+            key={product.id}
+            onClick={() => setProduct(product.id, product.images[0])}
             className={`flex flex-col items-center justify-center p-4 border rounded-lg shadow-md transition ${
-              selectedProduct === product.name ? "border-amber-700 shadow-lg" : "border-gray-300 hover:border-gray-400"
+              selectedProduct === product.id ? "border-amber-700 shadow-lg" : "border-gray-300 hover:border-gray-400"
             }`}
           >
             <Image
-              src={product.image} 
+              src={product.images[0]} 
               alt={product.name} 
               width={80}
               height={80}

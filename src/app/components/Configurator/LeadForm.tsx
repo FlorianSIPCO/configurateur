@@ -11,7 +11,7 @@ type LeadFormProps = {
 };
 
 export default function LeadForm({ onBack }: LeadFormProps) {
-  const { estimatedPrice, selectedProduct } = useConfigurator();
+  const { estimatedPrice, selectedProduct, selectedOptions } = useConfigurator();
   const router = useRouter();
 
   const [form, setForm] = useState({
@@ -34,6 +34,7 @@ export default function LeadForm({ onBack }: LeadFormProps) {
     const leadData = {
       ...form,
       product: selectedProduct,
+      options: selectedOptions,
       estimatedPrice,
       configuratorId: "demo-configurator-id" // à remplacer dynamiquement
     };
@@ -121,7 +122,7 @@ export default function LeadForm({ onBack }: LeadFormProps) {
 
       <div className="flex justify-between">
         <ButtonSecondary onClick={onBack}>Retour</ButtonSecondary>
-        <ButtonPrimary type="submit">Envoyer le devis</ButtonPrimary>
+        <ButtonPrimary type="submit">Obtenir le devis</ButtonPrimary>
       </div>
     </form>
   );

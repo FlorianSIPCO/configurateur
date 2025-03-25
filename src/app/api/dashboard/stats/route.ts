@@ -13,7 +13,7 @@ export async function GET() {
   }
 
   try {
-    const clientCount = await prisma.user.count({ where: { role: "CLIENT" } });
+    const clientCount = await prisma.lead.count();
     const productCount = await prisma.product.count();
     const adminCount = await prisma.user.count({ where: { role: "ADMIN" } });
 

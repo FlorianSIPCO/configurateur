@@ -11,6 +11,33 @@ const styles = StyleSheet.create({
   row: { flexDirection: "row", justifyContent: "space-between", marginBottom: 6 },
   note: { marginTop: 20, fontSize: 10, color: "gray", textAlign: "justify" },
   footer: { fontSize: 10, textAlign: "center", marginTop: 40, borderTop: 1, paddingTop: 10 },
+  table: {
+    width: "auto",
+    marginTop: 8,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderStyle: "solid",
+  },
+  tableRow: {
+    flexDirection: "row",
+  },
+  tableHeader: {
+    backgroundColor: "gold",
+    fontWeight: "bold",
+  },
+  tableCell: {
+    padding: 6,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "#ccc",
+    width: "50%",
+  },
+  priceRow: {
+    marginTop: 20,
+    fontSize: 14,
+    fontWeight: "bold",
+    textAlign: "right",
+  },
 });
 
 type Props = {
@@ -68,15 +95,36 @@ export default function DevisDocument({ userData, estimatedPrice }: Props) {
         {/* Produit & Prix */}
         <View style={styles.section}>
           <Text style={styles.label}>Détails de la demande :</Text>
+          
           <View style={styles.row}>
             <Text>Produit sélectionné :</Text>
             <Text>{userData.product || "Non renseigné"}</Text>
           </View>
-          <View style={styles.row}>
-            <Text>Prix estimé :</Text>
-            <Text>{estimatedPrice} €</Text>
-          </View>
+
+          {/* Affichage des options sélectionnées en tableau */}
+          {userData.options && Object.keys(userData.options).length > 0 && (
+            <>
+              <Text style={[styles.label, { marginTop: 10 }]}>Options sélectionnées :</Text>
+              <View style={styles.table}>
+                <View style={[styles.tableRow, styles.tableHeader]}>
+                  <Text style={styles.tableCell}>Option</Text>
+                  <Text style={styles.tableCell}>Valeur</Text>
+                </View>
+                {Object.entries(userData.options).map(([key, value]) => (
+                  <View style={styles.tableRow} key={key}>
+                    <Text style={styles.tableCell}>{key}</Text>
+                    <Text style={styles.tableCell}>{String(value)}</Text>
+                  </View>
+                ))}
+              </View>
+            </>
+          )}
+
+          {/* Prix estimé avec marge et texte en gras */}
+          <Text style={styles.priceRow}>Prix estimé : {estimatedPrice} €</Text>
         </View>
+
+
 
         {/* Note */}
         <Text style={styles.note}>

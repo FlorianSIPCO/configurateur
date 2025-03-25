@@ -23,20 +23,10 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-model Configurator {
-  id        String   @id @default(uuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  products  Product[]
-}
-
 model Product {
   id              String   @id @default(uuid())
   name            String
   description     String?
-  configuratorId  String
-  configurator    Configurator @relation(fields: [configuratorId], references: [id])
   priceFormula    String   // Exemple: "base_price + (width * height * material_coef)"
   images          String[] // URLs des images
   options         Option[]

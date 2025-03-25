@@ -31,6 +31,11 @@ export default async function DevisPage({ params }: Props) {
           {user.phone && <li><strong>Téléphone :</strong> {user.phone}</li>}
           {user.company && <li><strong>Entreprise :</strong> {user.company}</li>}
           <li><strong>Produit :</strong> {user.product}</li>
+          {user.options && Object.entries(user.options).map(([key, value]) => (
+            <li key={key}>
+              <strong>{key}</strong> : {String(value)}
+            </li>
+          ))}
           <li><strong>Prix estimé :</strong> {lead.priceEstimate} €</li>
         </ul>
         <DevisAction userData={user} estimatedPrice={lead.priceEstimate} />

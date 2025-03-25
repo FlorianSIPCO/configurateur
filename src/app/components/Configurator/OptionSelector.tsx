@@ -1,108 +1,120 @@
 "use client";
+
 import { useConfigurator } from "@/context/ConfiguratorContext";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-type ColorOption = {
+type OptionValue = {
   name: string;
-  image: string;
-  miniature: string;
+  image?: string;
+  miniature?: string;
   price: number;
-}
+};
 
-type TextureOption = {
+type ProductOption = {
   name: string;
-  colors: ColorOption[];
-}
+  type: string;
+  values: OptionValue[];
+};
 
 export default function OptionSelector() {
-  const { updateColor, updateTexture } = useConfigurator();
-  const [textures, setTextures] = useState<any[]>([]);
-  const [selectedTexture, setSelectedTexture] = useState<string>("Bois");
-  const [selectedColor, setSelectedColor] = useState<string>("Bois Clair");
-  const [optionPrice, setOptionPrice] = useState<number>(0);
+  const { selectedProduct, updateOption, updateColor, updateTexture } = useConfigurator();
+  const [materialOptions, setMaterialOptions] = useState<ProductOption[]>([]);
+  const [selectedMaterial, setSelectedMaterial] = useState<ProductOption | null>(null);
+  const [selectedColor, setSelectedColor] = useState<OptionValue | null>(null);
 
-  // Charger les options depuis le JSON
+  // Chargement des options depuis l'API une fois que le produit est sélectionné
   useEffect(() => {
-    fetch("/data/options.json")
+    if (!selectedProduct) return;
+
+    fetch(`/api/products/${selectedProduct}`)
       .then((res) => res.json())
-      .then((data) => {
-        setTextures(data.textures);
-        // Initialiser avec le prix de la première couleur Bois clair
-        const firstColor = data.textures.find((t: TextureOption) => t.name === "Bois")?.colors[0];
-        setOptionPrice(firstColor?.price || 0);
+      .then((product) => {
+        const materials = product.options?.filter((opt: ProductOption) => opt.type === "MATERIAL") || [];
+        setMaterialOptions(materials);
       })
-      .catch((error) => console.error("Erreur de chargement du JSON :", error));
-  }, []);
+      .catch((err) => console.error("Erreur chargement des options :", err));
+  }, [selectedProduct]);
 
-  // Récupérer les couleurs associées à la texture sélectionnée
-  const colors = textures.find((t) => t.name === selectedTexture)?.colors || [];
+  const handleMaterialSelect = (material: ProductOption) => {
+    setSelectedMaterial(material);
+    updateOption("Matériau", material.name);
+    updateTexture(material.name);
 
-  const handleTextureChange = (texture: TextureOption) => {
-    setSelectedTexture(texture.name);
-    const defaultColor = texture.colors[0];
-    setSelectedColor(defaultColor.name);
-    setOptionPrice(defaultColor.price);
-    updateTexture(texture.name);
-    updateColor(defaultColor.image, defaultColor.price);
+    // Sélection automatique de la première couleur
+    const defaultColor = material.values[0];
+    setSelectedColor(defaultColor);
+    updateOption("Couleur", defaultColor.name);
+    updateColor(defaultColor.image || "", defaultColor.price || 0);
   };
 
-  const handleColorChange = (color: ColorOption) => {
-    setSelectedColor(color.name);
-    setOptionPrice(color.price);
-    updateColor(color.image, color.price);
+  const handleColorSelect = (color: OptionValue) => {
+    setSelectedColor(color);
+    updateOption("Couleur", color.name);
+    updateColor(color.image || "", color.price || 0);
   };
 
   return (
     <div className="p-4 border-b">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-semibold">Personnalisation</h2>
-        <span className="text-sm font-medium text-gray-500">
-          {optionPrice > 0 ? `+${optionPrice} €` : "Inclus"}
-        </span>
-      </div>
+      <h2 className="text-xl font-semibold mb-4">Personnalisation</h2>
 
-      {/* Sélection de la texture */}
-      <div className="mb-4">
-        <h3 className="text-lg font-medium">Texture</h3>
-        <div className="flex gap-2 mt-2">
-          {textures.map((texture: TextureOption) => (
+      {/* Étape 1 - Choix du matériau */}
+      <div className="mb-6">
+        <h3 className="text-lg font-medium">Matériau</h3>
+        <div className="flex gap-4 mt-2 flex-wrap">
+          {materialOptions.map((material) => (
             <button
-              key={texture.name}
-              onClick={() => handleTextureChange(texture)}
+              key={material.name}
+              onClick={() => handleMaterialSelect(material)}
               className={`px-4 py-2 rounded-lg border transition ${
-                selectedTexture === texture.name ? "bg-amber-700 text-white border-amber-800" : "border-gray-300 hover:border-gray-400"
+                selectedMaterial?.name === material.name
+                  ? "bg-amber-700 text-white border-amber-800"
+                  : "border-gray-300 hover:border-gray-400"
               }`}
             >
-              {texture.name}
+              {material.name}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Sélection de la couleur (Dynamique selon la texture) */}
-      <div className="mb-4">
-        <h3 className="text-lg font-medium">Couleur</h3>
-        <div className="flex gap-4 mt-4">
-          {colors.map((color: ColorOption) => (
-            <button
-              key={color.name}
-              onClick={() => handleColorChange(color)}
-              className={`relative w-12 h-12 rounded-full border-2 overflow-hidden transition ${
-                selectedColor === color.name ? "border-amber-700 shadow-md" : "border-gray-300 hover:border-gray-400"
-              }`}
-            >
-              <Image 
-                src={color.miniature}
-                alt={color.name}
-                width={48}
-                height={48}
-                className='absolute inset-0 w-full h-full object-cover'
-              />
-            </button>
-          ))}
+      {/* Étape 2 - Choix de la couleur */}
+      {selectedMaterial && (
+        <div className="mb-4">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-lg font-medium">Couleur</h3>
+            {selectedColor?.price ? (
+              <span className="text-sm text-gray-500">+{selectedColor.price} €</span>
+            ) : (
+              <span className="text-sm text-gray-500">Inclus</span>
+            )}
+          </div>
+
+          <div className="flex gap-4 flex-wrap">
+            {selectedMaterial.values.map((color) => (
+              <button
+                key={color.name}
+                onClick={() => handleColorSelect(color)}
+                className={`relative w-14 h-14 rounded-full border-2 overflow-hidden transition ${
+                  selectedColor?.name === color.name ? "border-amber-700 shadow-md" : "border-gray-300 hover:border-gray-400"
+                }`}
+              >
+                {color.miniature ? (
+                  <Image
+                    src={color.miniature}
+                    alt={color.name}
+                    width={56}
+                    height={56}
+                    className="object-cover w-full h-full"
+                  />
+                ) : (
+                  <span className="text-xs">{color.name}</span>
+                )}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

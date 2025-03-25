@@ -26,7 +26,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className="hidden lg:flex w-64 bg-gray-800 p-6 flex-col justify-between">
+      <aside className="hidden lg:flex w-64 bg-amber-700 p-6 flex-col justify-between text-white">
         <nav>
           <Image 
             src='/images/logo.png'
@@ -42,7 +42,7 @@ const Sidebar = () => {
                 <Link
                   href={item.href}
                   className={`flex items-center gap-3 p-3 rounded-lg transition ${
-                    pathname === item.href ? "bg-blue-500" : "hover:bg-gray-700"
+                    pathname === item.href ? "bg-amber-600" : "hover:bg-amber-800"
                   }`}
                 >
                   {item.icon}
@@ -56,7 +56,7 @@ const Sidebar = () => {
         {/* Bouton Logout */}
         <button
           onClick={logout}
-          className="flex items-center gap-3 text-red-400 hover:text-white transition p-3 rounded-lg"
+          className="flex items-center gap-3 text-white hover:text-amber-500 transition p-3 rounded-lg"
         >
           <LogOut size={20} />
           Déconnexion
@@ -64,7 +64,7 @@ const Sidebar = () => {
       </aside>
 
       {/* Bouton pour ouvrir le menu en mobile/tablette */}
-      <button onClick={() => setIsOpen(true)} className="lg:hidden p-3 text-white fixed top-4 left-4 z-50">
+      <button onClick={() => setIsOpen(true)} className="lg:hidden p-3 text-amber-700 fixed top-4 left-4 z-50">
         <Menu size={28} />
       </button>
 
@@ -85,7 +85,7 @@ const Sidebar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.aside
-            className="fixed top-0 left-0 h-full w-64 bg-gray-800 p-6 flex flex-col justify-between z-50 lg:hidden"
+            className="fixed top-0 left-0 h-full w-64 bg-amber-700 text-white p-6 flex flex-col justify-between z-50 lg:hidden"
             initial={{ x: "-100%" }}
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
@@ -99,11 +99,11 @@ const Sidebar = () => {
             {/* Navigation */}
             <nav>
               <Image 
-                src='/images/logo-black.png'
+                src='/images/logo.png'
                 alt="Logo SIPCO Gaming"
-                width={50}
-                height={50}
-                style={{ width: "auto", height: "auto" }}
+                width={65}
+                height={65}
+                className="flex justify-center m-auto w-auto h-auto"
                 priority
               />
               <ul className="space-y-4">
@@ -111,8 +111,8 @@ const Sidebar = () => {
                   <li key={index}>
                     <Link
                       href={item.href}
-                      className={`flex items-center gap-3 p-3 rounded-lg transition ${
-                        pathname === item.href ? "bg-blue-500" : "hover:bg-gray-700"
+                      className={`flex items-center gap-3 p-3 mt-5 rounded-lg transition ${
+                        pathname === item.href ? "bg-amber-600" : "hover:bg-amber-800"
                       }`}
                       onClick={() => setIsOpen(false)}
                     >
@@ -127,7 +127,7 @@ const Sidebar = () => {
             {/* Bouton Déconnexion */}
             <button
               onClick={logout}
-              className="flex items-center gap-3 text-red-400 hover:text-white transition p-3 rounded-lg"
+              className="flex items-center gap-3 text-white hover:text-amber-600 transition p-3 rounded-lg"
             >
               <LogOut size={20} />
               Déconnexion

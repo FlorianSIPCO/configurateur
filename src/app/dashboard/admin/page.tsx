@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { JSX, useEffect, useState } from "react";
 import { Users, User, Package } from "lucide-react";
 import { useRouter } from "next/navigation";
+import LeadsChart from "./components/LeadsChart";
 
 interface User {
   id: string;
@@ -55,7 +56,7 @@ export default function AdminDashboard() {
   }, [])
 
   return (
-    <div className="text-white p-6">
+    <div className="p-6">
       {loading ? (
         <div className="flex justify-center">
           <p>Chargement...</p>
@@ -71,22 +72,27 @@ export default function AdminDashboard() {
               <p>Chargement...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 text-center">
-              <StatCard 
-                title="Clients" 
-                value={stats?.clientCount ?? 0} 
-                color="bg-gray-800 cursor-pointer border border-red-500 hover:bg-red-500 transition-all ease-in-out duration-300" 
-                icon={<Users size={40} />} 
-                onClick={() => router.push("/dashboard/admin/clients")}
-              />
-              <StatCard 
-                title="Produits" 
-                value={stats?.productCount ?? 0} 
-                color="bg-gray-800 cursor-pointer border border-red-500 hover:bg-red-500 transition-all ease-in-out duration-300" 
-                icon={<Package size={40} />} 
-                onClick={() => router.push("/dashboard/admin/products")}
-              />
-            </div>
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 text-center">
+                <StatCard 
+                  title="Leads" 
+                  value={stats?.clientCount ?? 0} 
+                  color="bg-amber-700 cursor-pointer border border-amber-800 hover:bg-amber-600 transition-all ease-in-out duration-300" 
+                  icon={<Users size={40} />} 
+                  onClick={() => router.push("/dashboard/admin/clients")}
+                />
+                <StatCard 
+                  title="Produits" 
+                  value={stats?.productCount ?? 0} 
+                  color="bg-amber-700 cursor-pointer border border-amber-800 hover:bg-amber-600 transition-all ease-in-out duration-300" 
+                  icon={<Package size={40} />} 
+                  onClick={() => router.push("/dashboard/admin/products")}
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <LeadsChart />
+              </div>
+            </>
           )}
         </>
       )}

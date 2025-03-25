@@ -7,7 +7,7 @@ type ConfiguratorContextType = {
   estimatedPrice: number;
   selectedColorPrice: number;
   updateOption: (optionName: string, value: string) => void;
-  setProduct: (product: string, image: string) => void;
+  setProduct: (id: string, image: string) => void;
   productImage: string;
   updateTexture: (texture: string) => void;
   updateColor: (image: string, price: number) => void;
@@ -16,7 +16,7 @@ type ConfiguratorContextType = {
 const ConfiguratorContext = createContext<ConfiguratorContextType | undefined>(undefined);
 
 export const ConfiguratorProvider = ({ children }: { children: ReactNode }) => {
-  const basePrice = 150; // ✅ Prix de base du modèle
+  const basePrice = 150; // Prix de base du modèle
 
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
@@ -37,12 +37,17 @@ export const ConfiguratorProvider = ({ children }: { children: ReactNode }) => {
     setSelectedColorPrice(price);
   };
 
-  const setProduct = (product: string, image: string) => {
-    setSelectedProduct(product);
+  // const setProduct = (product: string, image: string) => {
+  //   setSelectedProduct(product);
+  //   setProductImage(image);
+  // };
+  const setProduct = (id: string, image: string) => {
+    setSelectedProduct(id);
     setProductImage(image);
   };
+  
 
-  // ✅ Recalcul du prix dès que le prix de couleur change
+  // Recalcul du prix dès que le prix de couleur change
   useEffect(() => {
     setEstimatedPrice(basePrice + selectedColorPrice);
   }, [selectedColorPrice]);

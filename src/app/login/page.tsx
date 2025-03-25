@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
   const [visible, setVisible] = useState(false);
@@ -33,6 +34,11 @@ export default function LoginPage() {
   useEffect(() => {
     setTimeout(() => setVisible(true), 100)
   }, [])
+
+    // Etat pour gérer la visibilité des mots de passe
+    const [showPassword, setShowPassword] = useState(false);
+  
+    const togglePassword = () => setShowPassword(!showPassword);
 
   return (
     <main className="relative h-screen bg-gray-100 text-white flex items-center justify-center">
@@ -63,14 +69,23 @@ export default function LoginPage() {
             className="w-full p-3 rounded-lg bg-white text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-600"
             required
           />
-          <input
-            type="password"
-            placeholder="Mot de passe"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 rounded-lg bg-white text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-600"
-            required
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Mot de passe"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 rounded-lg bg-white text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-600"
+              required
+            />
+            <button
+              type="button"
+              onClick={togglePassword}
+              className="absolute right-3 top-4 text-gray-400 hover:text-black"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
 
           <button
             type="submit"
