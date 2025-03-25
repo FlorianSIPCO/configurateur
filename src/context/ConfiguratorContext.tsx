@@ -20,7 +20,7 @@ export const ConfiguratorProvider = ({ children }: { children: ReactNode }) => {
 
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
-  const [productImage, setProductImage] = useState<string>("/images/bois-clair.png");
+  const [productImage, setProductImage] = useState<string>("");
   const [estimatedPrice, setEstimatedPrice] = useState<number>(basePrice);
   const [selectedColorPrice, setSelectedColorPrice] = useState<number>(0);
 
@@ -37,10 +37,6 @@ export const ConfiguratorProvider = ({ children }: { children: ReactNode }) => {
     setSelectedColorPrice(price);
   };
 
-  // const setProduct = (product: string, image: string) => {
-  //   setSelectedProduct(product);
-  //   setProductImage(image);
-  // };
   const setProduct = (id: string, image: string) => {
     setSelectedProduct(id);
     setProductImage(image);

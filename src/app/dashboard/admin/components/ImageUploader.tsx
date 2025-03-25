@@ -51,7 +51,7 @@ export default function ImageUploader({ onUploadComplete }: Props) {
 
   return (
     <div className="space-y-4">
-      <input type="file" accept="image/*" multiple onChange={handleChange} className="hidden" />
+      <input ref={inputRef} type="file" accept="image/*" multiple onChange={handleChange} className="hidden" />
       <button
         type="button"
         onClick={handleClick}

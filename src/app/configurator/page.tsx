@@ -38,13 +38,19 @@ function ConfiguratorContent() {
           
           {/* Aperçu de la borne */}
           <div className="relative flex items-center justify-center">
-            <Image
-              src={productImage}
-              alt="Aperçu de la borne"
-              width={500}
-              height={500}
-              className="rounded-lg shadow-md"
-            />
+            {productImage ? (
+              <Image
+                src={productImage}
+                alt="Aperçu de la borne"
+                width={500}
+                height={500}
+                className="rounded-lg shadow-md"
+              />
+            ) : (
+              <div className="w-[300px] h-[300px] bg-gray-100 flex items-center justify-center text-gray-400 border rounded-lg">
+                Sélectionnez un modèle
+              </div>
+            )}
           </div>
 
           {/* Sélection des options */}

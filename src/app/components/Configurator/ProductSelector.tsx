@@ -1,12 +1,13 @@
 "use client";
 import { useConfigurator } from "@/context/ConfiguratorContext";
+import { UploadedImage } from "@/types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 type Product = {
   id: string;
   name: string;
-  images: string[];
+  images: UploadedImage[];
 }
 
 export default function ProductSelector() {
@@ -40,13 +41,13 @@ export default function ProductSelector() {
         {products.map((product) => (
           <button
             key={product.id}
-            onClick={() => setProduct(product.id, product.images[0])}
+            onClick={() => setProduct(product.id, product.images[0]?.url)}
             className={`flex flex-col items-center justify-center p-4 border rounded-lg shadow-md transition ${
               selectedProduct === product.id ? "border-amber-700 shadow-lg" : "border-gray-300 hover:border-gray-400"
             }`}
           >
             <Image
-              src={product.images[0]} 
+              src={product.images[0]?.url} 
               alt={product.name} 
               width={80}
               height={80}

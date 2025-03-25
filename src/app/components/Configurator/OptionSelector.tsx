@@ -3,13 +3,7 @@
 import { useConfigurator } from "@/context/ConfiguratorContext";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
-type OptionValue = {
-  name: string;
-  image?: string;
-  miniature?: string;
-  price: number;
-};
+import { OptionValue } from "@/types";
 
 type ProductOption = {
   name: string;
@@ -45,13 +39,13 @@ export default function OptionSelector() {
     const defaultColor = material.values[0];
     setSelectedColor(defaultColor);
     updateOption("Couleur", defaultColor.name);
-    updateColor(defaultColor.image || "", defaultColor.price || 0);
+    updateColor(defaultColor.image?.url || "", defaultColor.price || 0);
   };
 
   const handleColorSelect = (color: OptionValue) => {
     setSelectedColor(color);
     updateOption("Couleur", color.name);
-    updateColor(color.image || "", color.price || 0);
+    updateColor(color.image?.url || "", color.price || 0);
   };
 
   return (
@@ -101,7 +95,7 @@ export default function OptionSelector() {
               >
                 {color.miniature ? (
                   <Image
-                    src={color.miniature}
+                    src={color.miniature?.url}
                     alt={color.name}
                     width={56}
                     height={56}

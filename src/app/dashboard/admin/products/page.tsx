@@ -6,13 +6,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Eye, Pencil, Trash } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { UploadedImage } from '@/types'
 
 type Product = {
   id: string;
   name: string;
   description?: string;
   priceFormula: string;
-  images: string[];
+  images: UploadedImage[];
   createdAt: string;
 }
 
@@ -61,7 +62,7 @@ export default function PageProducts() {
             <div key={product.id} className="relative group bg-white text-gray-900 rounded-lg shadow overflow-hidden">
               {product.images[0] && (
                 <Image
-                  src={product.images[0]}
+                  src={product.images[0]?.url}
                   alt={product.name}
                   width={400}
                   height={200}

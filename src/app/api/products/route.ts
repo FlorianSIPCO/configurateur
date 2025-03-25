@@ -53,7 +53,25 @@ export async function GET() {
       }
     })
 
-    return NextResponse.json(products);
+    // Adapter les images au format { url, public_id }
+    const formattedProducts = products.map((product) => {
+      const images = Array.isArray(product.images)
+        ? product.images.map((img: any) => {
+            if (typeof img === "string") {
+              return { url: img, public_id: "" };
+            }
+            return img; // déjà bien formaté
+          })
+        : [];
+
+      return {
+        ...product,
+        images,
+      };
+    });
+
+    return NextResponse.json(formattedProducts);
+
   } catch (error) {
     console.error("Erreur API GET /products :", error);
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 })

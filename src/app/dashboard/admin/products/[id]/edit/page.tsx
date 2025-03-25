@@ -12,8 +12,8 @@ type UploadedImage = { url: string; public_id: string };
 
 type OptionValue = {
   name: string;
-  image: string;
-  miniature: string;
+  image: UploadedImage;
+  miniature: UploadedImage;
   price: number;
 };
 
@@ -106,8 +106,8 @@ export default function EditProductPage() {
     const updated = [...options];
     updated[optionIndex].values.push({
       name: "",
-      image: "",
-      miniature: "",
+      image: { url: "", public_id: "" },
+      miniature: { url: "", public_id: "" },
       price: 0,
     });
     setOptions(updated);
@@ -132,7 +132,7 @@ export default function EditProductPage() {
     images: UploadedImage[]
   ) => {
     const updated = [...options];
-    updated[optionIndex].values[valueIndex][field] = images[0]?.url || "";
+    updated[optionIndex].values[valueIndex][field] = images[0] ?? { url: "", public_id: "" };
     setOptions(updated);
   };
 
@@ -217,12 +217,12 @@ export default function EditProductPage() {
                   <div>
                     <p className="text-sm mb-1">Image</p>
                     <ImageUploader onUploadComplete={(urls) => handleImageUpload(index, valIndex, "image", urls)} />
-                    {val.image && <Image src={val.image} alt="image" width={60} height={60} className="rounded mt-2" />}
+                    {val.image && <Image src={val.image.url} alt="image" width={60} height={60} className="rounded mt-2" />}
                   </div>
                   <div>
                     <p className="text-sm mb-1">Miniature</p>
                     <ImageUploader onUploadComplete={(urls) => handleImageUpload(index, valIndex, "miniature", urls)} />
-                    {val.miniature && <Image src={val.miniature} alt="miniature" width={60} height={60} className="rounded mt-2" />}
+                    {val.miniature && <Image src={val.miniature.url} alt="miniature" width={60} height={60} className="rounded mt-2" />}
                   </div>
                   <div className="flex items-center gap-2">
                     <input
