@@ -12,10 +12,10 @@ cloudinary.config({
 
 export async function GET(req: Request, context: any) {
   try {
-    const productId = context.params.id;
+    const { id } = context.params.id;
 
     const product = await prisma.product.findUnique({
-      where: productId,
+      where: { id },
       include: {
         options: true,
       },
