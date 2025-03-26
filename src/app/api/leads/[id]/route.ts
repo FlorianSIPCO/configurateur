@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function DELETE(_: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_: Request, context: any) {
   try {
-    await prisma.lead.delete({ where: { id: params.id } });
+    await prisma.lead.delete(context.params.id);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Erreur suppression lead :", error);
