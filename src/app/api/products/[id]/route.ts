@@ -10,12 +10,12 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET!,
 });
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, context: any) {
   try {
-    const { id } = params;
+    const productId = context.params.id;
 
     const product = await prisma.product.findUnique({
-      where: { id },
+      where: productId,
       include: {
         options: true,
       },
@@ -60,18 +60,18 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 }
 
 // Logique de modification
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, context: any) {
   try {
     const body = await req.json();
     const { name, description, priceFormula, images, options } = body;
 
     // Supprimer les options existantes (avec cascade pour values si setup Prisma)
     await prisma.option.deleteMany({
-      where: { productId: params.id },
+      where: { productId: context.params.id },
     });
 
     const updatedProduct = await prisma.product.update({
-      where: { id: params.id },
+      where: { id: context.params.id },
       data: {
         name,
         description,
@@ -96,9 +96,9 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // Logique de suppression
-export async function DELETE(_: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_: Request, context: any) {
   const product = await prisma.product.findUnique({
-    where: { id: params.id },
+    where: { id: context.params.id },
     include: {
       options: true,
     }
@@ -111,7 +111,7 @@ export async function DELETE(_: Request, { params }: { params: { id: string } })
   // Supprimer les options liées
   await prisma.option.deleteMany({
     where: {
-      productId: params.id
+      productId: context.params.id
     }
   })
 
@@ -126,7 +126,7 @@ export async function DELETE(_: Request, { params }: { params: { id: string } })
 
   // Suppression du produit
   await prisma.product.delete({
-    where: { id: params.id },
+    where: { id: context.params.id },
   });
 
   return NextResponse.json({ success: true });
