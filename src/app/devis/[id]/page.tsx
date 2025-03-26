@@ -4,12 +4,8 @@ import { notFound } from "next/navigation";
 
 const prisma = new PrismaClient();
 
-type Props = {
-    params: { id: string }
-}
-
-export default async function DevisPage({ params }: Props) {
-  const { id } = params;
+export default async function DevisPage(context: any) {
+  const { id } = context.params.id;
 
   const lead = await prisma.lead.findUnique({
     where: { id },
