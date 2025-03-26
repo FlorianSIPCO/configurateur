@@ -7,13 +7,7 @@ import Image from "next/image";
 import ImageUploader from "../../components/ImageUploader";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-
-type OptionValue = {
-  name: string;
-  image: string;
-  miniature: string;
-  price: number;
-};
+import { OptionValue } from "@/types";
 
 type Option = {
   name: string;
@@ -48,8 +42,8 @@ export default function CreateOrEditProduct() {
     const updated = [...options];
     updated[optionIndex].values.push({
       name: "",
-      image: "",
-      miniature: "",
+      image: { url: "", public_id: ""},
+      miniature: { url: "", public_id: ""},
       price: 0,
     });
     setOptions(updated);
@@ -80,7 +74,7 @@ export default function CreateOrEditProduct() {
     images: UploadedImage[]
   ) => {
     const updated = [...options];
-    updated[optionIndex].values[valueIndex][field] = images[0]?.url || "";
+    updated[optionIndex].values[valueIndex][field] = images[0] || { url: "", public_id: ""};
     setOptions(updated);
   };
 
@@ -192,14 +186,14 @@ export default function CreateOrEditProduct() {
                   <div>
                     <p className="text-sm mb-1">Image</p>
                     <ImageUploader onUploadComplete={(urls) => handleImageUpload(index, valIndex, "image", urls)} />
-                    {val.image && <Image src={val.image} alt="image" width={60} height={60} className="rounded mt-2" />}
+                    {val.image && <Image src={val.image?.url} alt="image" width={60} height={60} className="rounded mt-2" />}
                   </div>
 
                   {/* Upload miniature */}
                   <div>
                     <p className="text-sm mb-1">Miniature</p>
                     <ImageUploader onUploadComplete={(urls) => handleImageUpload(index, valIndex, "miniature", urls)} />
-                    {val.miniature && <Image src={val.miniature} alt="miniature" width={60} height={60} className="rounded mt-2" />}
+                    {val.miniature && <Image src={val.miniature?.url} alt="miniature" width={60} height={60} className="rounded mt-2" />}
                   </div>
 
                   {/* Prix */}
@@ -207,7 +201,7 @@ export default function CreateOrEditProduct() {
                     <input
                       type="text"
                       placeholder="Prix"
-                      value={val.price}
+                      value={Number.isFinite(val.price) ? val.price : ""}
                       onChange={(e) => handleValueChange(index, valIndex, "price", e.target.value)}
                       className="border px-3 py-2 rounded w-full"
                     />

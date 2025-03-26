@@ -18,12 +18,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Données incomplètes" }, { status: 400 });
     }
 
+    const imageUrls = images.map((img: { url: string }) => img.url)
+
     const createdProduct = await prisma.product.create({
       data: {
         name,
         description,
         priceFormula,
-        images,
+        images: imageUrls,
         options: {
           create: options.map((opt: any) => ({
             name: opt.name,

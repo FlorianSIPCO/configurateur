@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
@@ -15,6 +16,7 @@
     "bcryptjs": "^3.0.2",
     "chart.js": "^4.4.8",
     "cloudinary": "^2.6.0",
+    "csv-parse": "^5.6.0",
     "date-fns": "^4.1.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.483.0",

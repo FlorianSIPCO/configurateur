@@ -93,9 +93,9 @@ export default function OptionSelector() {
                   selectedColor?.name === color.name ? "border-amber-700 shadow-md" : "border-gray-300 hover:border-gray-400"
                 }`}
               >
-                {color.miniature ? (
+                {color?.miniature?.url ? (
                   <Image
-                    src={color.miniature?.url}
+                    src={color.miniature.url}
                     alt={color.name}
                     width={56}
                     height={56}
