@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 const prisma = new PrismaClient();
 
 export default async function DevisPage(context: any) {
-  const { id } = context.params.id;
+  const { id } = context.params;
 
   const lead = await prisma.lead.findUnique({
     where: { id },

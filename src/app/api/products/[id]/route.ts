@@ -12,7 +12,7 @@ cloudinary.config({
 
 export async function GET(req: Request, context: any) {
   try {
-    const { id } = context.params.id;
+    const { id } = context.params;
 
     const product = await prisma.product.findUnique({
       where: { id },
@@ -67,11 +67,11 @@ export async function PUT(req: Request, context: any) {
 
     // Supprimer les options existantes (avec cascade pour values si setup Prisma)
     await prisma.option.deleteMany({
-      where: { productId: context.params.id },
+      where: { productId: context.params },
     });
 
     const updatedProduct = await prisma.product.update({
-      where: { id: context.params.id },
+      where: { id: context.params },
       data: {
         name,
         description,
@@ -98,7 +98,7 @@ export async function PUT(req: Request, context: any) {
 // Logique de suppression
 export async function DELETE(_: Request, context: any) {
   const product = await prisma.product.findUnique({
-    where: { id: context.params.id },
+    where: { id: context.params },
     include: {
       options: true,
     }
@@ -111,7 +111,7 @@ export async function DELETE(_: Request, context: any) {
   // Supprimer les options liées
   await prisma.option.deleteMany({
     where: {
-      productId: context.params.id
+      productId: context.params
     }
   })
 
@@ -126,7 +126,7 @@ export async function DELETE(_: Request, context: any) {
 
   // Suppression du produit
   await prisma.product.delete({
-    where: { id: context.params.id },
+    where: { id: context.params },
   });
 
   return NextResponse.json({ success: true });
