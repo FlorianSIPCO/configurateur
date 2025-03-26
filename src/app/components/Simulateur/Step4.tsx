@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import ButtonPrimary from "../Buttons/ButtonPrimary";
 import toast from "react-hot-toast";
 import { SimulateurFormData } from "@/types";
