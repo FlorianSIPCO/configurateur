@@ -22,25 +22,25 @@ export default function Step4({ data, onChange, onBack, onSubmit }: Props) {
           value={data.firstname}
           onChange={(e) => onChange("firstname", e.target.value)}
           placeholder="Prénom *"
-          className="border px-4 py-2 rounded"
+          className="border px-4 py-2 rounded bg-white border-red-700"
         />
         <input
           value={data.lastname}
           onChange={(e) => onChange("lastname", e.target.value)}
           placeholder="Nom *"
-          className="border px-4 py-2 rounded"
+          className="border px-4 py-2 rounded bg-white border-red-700"
         />
         <input
           value={data.email}
           onChange={(e) => onChange("email", e.target.value)}
           placeholder="Email *"
-          className="border px-4 py-2 rounded"
+          className="border px-4 py-2 rounded bg-white border-red-700"
         />
         <input
           value={data.phone}
           onChange={(e) => onChange("phone", e.target.value)}
           placeholder="Téléphone"
-          className="border px-4 py-2 rounded"
+          className="border px-4 py-2 rounded bg-white border-red-700"
         />
       </div>
 

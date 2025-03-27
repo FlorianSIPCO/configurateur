@@ -1,4 +1,5 @@
 import { SimulateurFormData } from "@/types";
+import ButtonPrimary from "../Buttons/ButtonPrimary";
 
 type Props = {
   data: SimulateurFormData;
@@ -25,14 +26,16 @@ export default function Step1({ data, onChange, onNext }: Props) {
           </button>
         ))}
       </div>
-
-      <button
-        onClick={onNext}
-        disabled={!data.productType}
-        className="bg-red-700 text-white px-6 py-2 rounded disabled:opacity-50"
-      >
-        Suivant
-      </button>
+      <div className="flex justify-end">
+        <ButtonPrimary
+          onClick={onNext}
+          disabled={!data.productType}
+          className="bg-red-700 border-red-700 hover:text-red-700 text-white px-6 py-2 rounded disabled:opacity-50"
+          type="button"
+        >
+          Suivant
+        </ButtonPrimary>
+      </div>
     </div>
   );
 }

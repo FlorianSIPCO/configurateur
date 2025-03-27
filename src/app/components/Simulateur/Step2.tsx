@@ -16,11 +16,11 @@ export default function Step2({ data, onChange, onNext, onBack }: Props) {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-6">Définition de vos besoins</h2>
+      <h2 className="text-xl font-bold mb-6 text-white">Définition de vos besoins</h2>
 
       {/* Quantité souhaitée */}
       <div className="mb-6">
-        <label className="block font-medium mb-2">Quantité souhaitée</label>
+        <label className="block font-medium mb-2 text-white">Quantité souhaitée</label>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-4">
           {quantities.map((qty) => (
             <button
