@@ -3,12 +3,20 @@ import ButtonPrimary from "../Buttons/ButtonPrimary";
 
 type Props = {
   data: SimulateurFormData;
-  onChange: (field: keyof SimulateurFormData, value: string) => void;
+  onChange: (field: keyof SimulateurFormData, value: string[]) => void;
   onNext: () => void;
 };
 
 export default function Step1({ data, onChange, onNext }: Props) {
   const productTypes = ["Fenêtres", "Portes-fenêtres", "Portes d’entrée", "Volets", "Portails"];
+
+  const toggleProduct = (product: string) => {
+    const updated = data.productTypes.includes(product)
+    ? data.productTypes.filter((p) => p !== product)
+    : [...data.productTypes, product];
+
+    onChange('productTypes', updated)
+  }
 
   return (
     <div>
@@ -17,9 +25,9 @@ export default function Step1({ data, onChange, onNext }: Props) {
         {productTypes.map((type) => (
           <button
             key={type}
-            onClick={() => onChange("productType", type)}
+            onClick={() => toggleProduct(type)}
             className={`p-4 border rounded-lg ${
-              data.productType === type ? "bg-red-700 text-white" : "bg-white text-gray-800"
+              data.productTypes.includes(type) ? "bg-red-700 text-white" : "bg-white text-gray-800"
             }`}
           >
             {type}
@@ -29,7 +37,7 @@ export default function Step1({ data, onChange, onNext }: Props) {
       <div className="flex justify-end">
         <ButtonPrimary
           onClick={onNext}
-          disabled={!data.productType}
+          disabled={data.productTypes.length === 0}
           className="bg-red-700 border-red-700 hover:text-red-700 text-white px-6 py-2 rounded disabled:opacity-50"
           type="button"
         >

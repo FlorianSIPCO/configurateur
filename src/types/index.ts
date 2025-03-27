@@ -27,7 +27,7 @@ export type Product = {
 };
 
 export type SimulateurFormData = {
-  productType: string;
+  productTypes: string[];
   quantity: string;
   material: string;
   projectType: string;

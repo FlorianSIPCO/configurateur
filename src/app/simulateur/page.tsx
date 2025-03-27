@@ -5,17 +5,15 @@ import Step1 from "../components/Simulateur/Step1";
 import Step2 from "../components/Simulateur/Step2";
 import Step3 from "../components/Simulateur/Step3";
 import Step4 from "../components/Simulateur/Step4";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Timeline from "../components/Simulateur/Timeline";
 import RecapCard from "../components/Simulateur/RecapCard";
 
 export default function SimulateurPage() {
   const [step, setStep] = useState(1);
-  const router = useRouter();
 
   const [formData, setFormData] = useState({
-    productType: "",
+    productTypes: [],
     quantity: "",
     material: "",
     projectType: "",
@@ -33,17 +31,17 @@ export default function SimulateurPage() {
     setStep((prev) => Math.max(prev - 1, 1));
   };
 
-  const handleChange = (field: string, value: string) => {
+  const handleChange = (field: string, value: string | string[]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async () => {
     try {
-      const res = await fetch("/api/leads", {
+      const res = await fetch("/api/sendEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userData: formData,
+          ...formData,
           priceEstimate: 0, // calcul à ajouter plus tard si besoin
         }),
       });
@@ -51,7 +49,6 @@ export default function SimulateurPage() {
       if (!res.ok) throw new Error();
 
       toast.success("Votre demande a bien été envoyée !");
-      router.push("/merci");
     } catch (error) {
       toast.error("Erreur lors de l'envoi du formulaire");
       console.error("Erreur survenue :", error);

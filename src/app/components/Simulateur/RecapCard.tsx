@@ -12,7 +12,7 @@ export default function RecapCard({ data }: Props) {
       <h2 className="text-lg font-semibold mb-4 text-red-700">Résumé</h2>
 
       <ul className="space-y-2 text-sm text-gray-800">
-        <li><strong>Produit :</strong> {data.productType || "–"}</li>
+        <li><strong>Produit :</strong> {data.productTypes.length > 0 ? data.productTypes.join(", ") : "–"}</li>
         <li><strong>Quantité :</strong> {data.quantity || "–"}</li>
         <li><strong>Matériau :</strong> {data.material || "–"}</li>
         <li><strong>Projet :</strong> {data.projectType || "–"}</li>
