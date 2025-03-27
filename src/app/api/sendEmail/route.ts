@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     const emailRes = await resend.emails.send({
       from: 'Devis simulateur <onboarding@resend.dev>',
-      to: 'sebastien.mittre@sipco.fr',
+      to: 'florian.bouclet@sipco.fr',
       subject: `Nouveau devis de ${firstname} ${lastname}`,
       react: LeadSubmissionEmail({ firstname, lastname, email, phone, productTypes, quantity, material, projectType }),
     });
