@@ -16,7 +16,7 @@ export default function Step3({ data, onChange, onNext, onBack }: Props) {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Quel est votre type de projet ?</h2>
+      <h2 className="text-xl font-bold mb-4 text-white">Quel est votre type de projet ?</h2>
 
       <div className="flex flex-col gap-4 mb-6">
         {options.map((option) => (

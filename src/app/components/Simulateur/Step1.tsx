@@ -11,7 +11,7 @@ export default function Step1({ data, onChange, onNext }: Props) {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Quel type de produit ?</h2>
+      <h2 className="text-xl font-bold mb-4 text-white">Quel type de produit ?</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         {productTypes.map((type) => (
           <button

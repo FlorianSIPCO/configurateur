@@ -38,7 +38,7 @@ export default function Step2({ data, onChange, onNext, onBack }: Props) {
 
       {/* Type de matériau */}
       <div className="mb-6">
-        <label className="block font-medium mb-2">Type de matériau</label>
+        <label className="block font-medium mb-2 text-white">Type de matériau</label>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {materials.map((mat) => (
             <button
