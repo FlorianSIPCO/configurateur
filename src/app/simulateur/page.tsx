@@ -61,7 +61,7 @@ export default function SimulateurPage() {
         style={{ backgroundImage: "url('/images/fenetres.jpg')" }}
         >
         {/* Conteneur principal (formulaire + timeline) */}
-        <div className="max-w-4xl mx-auto mt-40 rounded-lg bg-black/40 backdrop-blur-md p-6 z-10 relative">
+        <div className="max-w-4xl mx-auto mt-20 rounded-lg bg-black/40 backdrop-blur-md p-6 z-10 relative">
             <Timeline currentStep={step} />
 
             {step === 1 && (
@@ -84,7 +84,7 @@ export default function SimulateurPage() {
         </div>
 
         {/* Recap indépendant en fixed à droite */}
-        <div className="hidden lg:block absolute top-70 right-12 w-80">
+        <div className="flex justify-center mt-10">
             <RecapCard data={formData} />
         </div>
     </div>
