@@ -97,8 +97,10 @@ export async function PUT(req: Request, context: any) {
 
 // Logique de suppression
 export async function DELETE(_: Request, context: any) {
+  const id = context.params.id;
+
   const product = await prisma.product.findUnique({
-    where: { id: context.params },
+    where: { id },
     include: {
       options: true,
     }
@@ -111,7 +113,7 @@ export async function DELETE(_: Request, context: any) {
   // Supprimer les options liées
   await prisma.option.deleteMany({
     where: {
-      productId: context.params
+      productId: id,
     }
   })
 
@@ -126,7 +128,7 @@ export async function DELETE(_: Request, context: any) {
 
   // Suppression du produit
   await prisma.product.delete({
-    where: { id: context.params },
+    where: { id },
   });
 
   return NextResponse.json({ success: true });
