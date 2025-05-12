@@ -57,4 +57,4 @@ Documentation officielle de Nextjs :
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-![Dernière mise à jour](https://img.shields.io/github/last-commit/FlorianSIPCO/configurateur/tree/main?label=Dernière%20mise%20à%20jour)
+![Dernière mise à jour](https://img.shields.io/github/last-commit/FlorianSIPCO/sipco_cybersecurity?label=Dernière%20mise%20à%20jour)
