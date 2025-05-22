@@ -60,7 +60,7 @@ const Navbar = () => {
             <User className="w-10 h-10 cursor-pointer hover:text-amber-800 transition" />
           </Link>
           <button
-            className="md:hidden text-white"
+            className="md:hidden text-amber-700"
             onClick={() => setIsOpen(!isOpen)}
           >
             <Menu className="w-10 h-10" />
